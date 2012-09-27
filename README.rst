@@ -20,7 +20,6 @@ In your app/Config/bootstrap.php add this::
     CakePlugin::loadAll(array(
         'NanoAuth' => array('bootstrap' => false, 'routes' => true)
     ));
-    <F3>
 
 Usage
 --------------
