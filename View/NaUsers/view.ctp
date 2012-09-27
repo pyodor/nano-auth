@@ -13,7 +13,7 @@
 		</dd>
 		<dt><?php echo __('Password Crypt'); ?></dt>
 		<dd>
-			<?php echo h($naUser['NaUser']['password_crypt']); ?>
+			<?php echo h($naUser['NaUser']['password']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Email'); ?></dt>

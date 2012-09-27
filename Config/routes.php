@@ -29,6 +29,6 @@
     Router::connect('/login', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'login'));
     Router::connect('/logout', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'logout'));
 
-    Router::connect('/users/add', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'add'));
+    //Router::connect('/users/add', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'add'));
 
 

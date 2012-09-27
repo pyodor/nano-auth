@@ -2,24 +2,22 @@
 
 class NanoAuthAppController extends AppController {
     public $components = array(
+        'Session',
         'Auth' => array(
             'loginAction' => array(
                 'controller' => 'na_users',
                 'action' => 'login',
                 'plugin' => 'nano_auth'
             ),
-            'authError' => 'Did you really think you are allowed to see that?',
             'authenticate' => array(
-                'Form' => array(
-                    'fields' => array('username', 'password')
-                )
-            )
+                'Form' => array('userModel' => 'NaUser'),
+            ),
+            'loginRedirect' => array('controller' => 'na_users', 'action' => 'index', 'plugin' => 'nano_auth'),
+            'logoutRedirect' => array('controller' => 'na_users', 'action' => 'index', 'plugin' => 'nano_auth'),
         )
     );
 
     public function beforeFilter() {
-        $this->Auth->userModel = 'NaUsers';
-        $this->Auth->allow('add');
     }
 }
 

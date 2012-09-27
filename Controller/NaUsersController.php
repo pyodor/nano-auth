@@ -6,16 +6,37 @@ App::uses('NanoAuthAppController', 'NanoAuth.Controller');
  * @property NaUser $NaUser
  */
 class NaUsersController extends NanoAuthAppController {
-    
+/**
+ * beforeFilter method
+ *
+ * @return void
+ */
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('add');
+    }
+
+/**
+ * logout method
+ *
+ * @return void
+ */
+    public function logout() {
+        $this->redirect($this->Auth->logout());
+    }
+
 /**
  * login method
  *
  * @return void
  */
     public function login() {
+        if($this->Auth->user()) {
+            $this->redirect($this->Auth->redirect());
+        }
+
         if($this->request->is('post')) {
             if($this->Auth->login()){
-                debug('sssss');
                 $this->redirect($this->Auth->redirect());
             }
             else{

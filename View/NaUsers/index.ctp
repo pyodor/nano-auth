@@ -4,7 +4,7 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('username'); ?></th>
-			<th><?php echo $this->Paginator->sort('password_crypt'); ?></th>
+			<th><?php echo $this->Paginator->sort('password'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('updated'); ?></th>
@@ -15,7 +15,7 @@
 	<tr>
 		<td><?php echo h($naUser['NaUser']['id']); ?>&nbsp;</td>
 		<td><?php echo h($naUser['NaUser']['username']); ?>&nbsp;</td>
-		<td><?php echo h($naUser['NaUser']['password_crypt']); ?>&nbsp;</td>
+		<td><?php echo h($naUser['NaUser']['password']); ?>&nbsp;</td>
 		<td><?php echo h($naUser['NaUser']['email']); ?>&nbsp;</td>
 		<td><?php echo h($naUser['NaUser']['created']); ?>&nbsp;</td>
 		<td><?php echo h($naUser['NaUser']['updated']); ?>&nbsp;</td>
