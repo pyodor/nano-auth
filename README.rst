@@ -14,10 +14,10 @@ Clone the plugin inside your app/Plugin directory::
 Usage
 --------------
 
-Accessing the authentication page:
+Accessing the authentication page::
 
-Login route is ``http://your-app-url/login``
-Logout route is ``http://your-app-url/login``
+    http://your-app-url/login
+    http://your-app-url/logout
 
 You may want to make your own route for the login/logout page just add this on your routes.php::
 
@@ -29,7 +29,7 @@ You can access logged-in user in your controller like this::
         $this->redirect('/login'); 
     }
 
-NanoAuth Features
+Features
 ------------------
 
 - Full CRUD user management with pagination
@@ -39,7 +39,7 @@ TODO
 ----------------
 
 - Role Management 
-- Custome template
+- Custom template
 - API (json, xml) generator for front-end use 
 
 License
