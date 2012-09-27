@@ -13,7 +13,7 @@ Clone the plugin inside your app/Plugin directory::
 
 Migrate the schema::
 
-    cake schema create --Plugin NanoAuth
+    cake schema create --plugin NanoAuth
 
 Usage
 --------------
