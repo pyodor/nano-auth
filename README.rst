@@ -50,7 +50,9 @@ License
 Support
 -----------------
 
-Holler me_ :)
+Holler me_ or FORK_ it! :) 
 
 .. _WTFPL: http://sam.zoy.org/wtfpl/
 .. _me: dado@neseapl.com
+.. _FORK: http://202.172.229.26/rhodecode/NanoAuth/fork
+
