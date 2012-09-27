@@ -11,6 +11,10 @@ Clone the plugin inside your app/Plugin directory::
 
     git clone http://[your_username]@202.172.229.26/rhodecode/NanoAuth
 
+Migrate the schema::
+
+    cake schema create --Plugin NanoAuth
+
 Usage
 --------------
 
