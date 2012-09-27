@@ -13,7 +13,7 @@ class NaUsersController extends NanoAuthAppController {
  */
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add');
+        //$this->Auth->allow('add');
     }
 
 /**
@@ -22,6 +22,7 @@ class NaUsersController extends NanoAuthAppController {
  * @return void
  */
     public function logout() {
+        $this->Session->delete('NaUser');
         $this->redirect($this->Auth->logout());
     }
 
@@ -36,7 +37,8 @@ class NaUsersController extends NanoAuthAppController {
         }
 
         if($this->request->is('post')) {
-            if($this->Auth->login()){
+            if($this->Auth->login()) {
+                $this->Session->write('NaUser', $this->Auth->user());
                 $this->redirect($this->Auth->redirect());
             }
             else{
@@ -50,7 +52,7 @@ class NaUsersController extends NanoAuthAppController {
  *
  * @return void
  */
-	public function index() {
+    public function index() {
 		$this->NaUser->recursive = 0;
 		$this->set('naUsers', $this->paginate());
 	}
