@@ -11,9 +11,9 @@ Clone the plugin inside your app/Plugin directory::
 
     git clone http://[your_username]@202.172.229.26/rhodecode/NanoAuth
 
-Migrate the latest schema::
+Migrate the latest schema, inside your app directory do this::
 
-    cake schema create -s [latest schema number] --plugin NanoAuth
+    Console/cake schema create -s [latest schema number] --plugin NanoAuth
 
 In your app/Config/bootstrap.php add this::
 
