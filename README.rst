@@ -34,16 +34,25 @@ You may want to make your own route for the login/logout page just add this on y
     Router::connect('/anything-you-like', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'login'));
 
 You can access logged-in user in your controller like this::
-
-    if(!$this->Session->read('NaUser')) { // user not logged-in
+    $user = $this->Session->read('NaUser');
+    if(!$user) { // user not logged-in
         $this->redirect('/login'); 
     }
+    debug($user); // see what's inside user
+
+Default page after login and logout is ``NaUsers/index`` of the plugin, to configure your own landing page add this on your Config/core.php ::
+    
+    Configure::write('NanoAuth', array(
+        'loginRedirect' => array('controller' => 'MyController', 'action' => 'index'),
+        'logoutRedirect' => array('controller' => 'MyOtherController', 'action' => 'index'),
+    ));
 
 Features
 ------------------
 
 - Full CRUD user management with pagination
 - Utilizes CakePHP Auth Component
+- Supports app level configuration (i.e setting landing page after login or logout)
     
 TODO
 ----------------
