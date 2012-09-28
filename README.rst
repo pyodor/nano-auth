@@ -78,7 +78,7 @@ Relating NanoAuth's User model with your app's models, for example Profile model
     }
 
     // And then accessing it on the controller
-    public $uses = array('NanoAuth.NaUser');
+    public $uses = array('NanoAuth.NaUser', 'Profile');
 
     public function index() {
         debug($this->Profile->find('all'));
