@@ -58,6 +58,9 @@ You can access logged-in user in your controller like this::
     }
     debug($user); // see what's inside user
 
+Configuration
+--------------
+
 Default page after login and logout is ``NaUsers/index`` of the plugin, to configure your own landing page add this on your Config/core.php ::
     
     Configure::write('NanoAuth', array(
