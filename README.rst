@@ -68,7 +68,7 @@ Default page after login and logout is ``NaUsers/index`` of the plugin, to confi
 For forgot password feature, the sending of email by default is in debug mode, 
 to enable this in production add this in your Config/core.php under NanoAuth's configuration::
 
-    'email_sending' => false,
+    'email_sending' => true,
 
 TODO
 ----------------
