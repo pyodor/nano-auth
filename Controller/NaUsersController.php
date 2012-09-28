@@ -1,5 +1,6 @@
 <?php
 App::uses('NanoAuthAppController', 'NanoAuth.Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * NaUsers Controller
  *
@@ -15,6 +16,81 @@ class NaUsersController extends NanoAuthAppController {
         parent::beforeFilter();
     }
 
+/**
+ * password_reset method
+ *
+ * @return void
+ */
+    public function password_reset($code=NULL) {
+        if($this->request->is('post')) {
+            $user = $this->NaUser->findByPasswordResetCode($this->request->data['NaUser']['code']);
+            if($this->request->data['NaUser']['password'] != $this->request->data['NaUser']['password_confirmation']) {
+                $this->Session->setFlash("Password doesn't match");
+            }
+            else {
+                $this->NaUser->read(null, $user['NaUser']['id']);
+                $this->NaUser->set('password', $this->request->data['NaUser']['password']);
+                $this->NaUser->set('password_reset_code', '');
+                if($this->NaUser->save()) {
+                    $this->Session->setFlash('Password reset successfull, you may now login');
+                    $this->redirect('/login');
+                }
+                else {
+                    $this->Session->setFlash('Error resetting your password');
+                }
+            }
+        }
+        else {
+            $user = $this->NaUser->findByPasswordResetCode($code);
+            if(!$user) {
+                $this->Session->setFlash('Password reset code is invalid');
+            }
+        }
+        $this->set(compact('user'));
+    }
+/**
+ * forgot_password method
+ *
+ * @return void
+ */
+    public function forgot_password() {
+        if($this->request->is('post')) {
+            $user = $this->NaUser->findByEmail($this->request->data['NaUser']['email']);
+            if(!$user) {
+                $this->Session->setFlash('Email address not found');
+            }
+            else {
+                $reset_code = Security::hash($this->request->data['NaUser']['email']);
+                $this->NaUser->read(null, $user['NaUser']['id']);
+                $this->NaUser->set('password_reset_code', $reset_code);
+                $this->NaUser->save();
+                $user = $this->NaUser->read(null, $user['NaUser']['id']);
+                if($this->sendPasswordResetCode($user)) {
+                    $this->Session->setFlash('Password reset code was sent to your email address');
+                }
+                else {
+                    $this->Session->setFlash('Error sending your password reset code');
+                }
+            }
+        }
+    }
+
+    private function sendPasswordResetCode($user) {
+        if(empty($user['NaUser']['password_reset_code'])) return false;
+        
+        $password_reset_url = "http://" . $this->request->host() . "/password_reset/" . $user['NaUser']['password_reset_code'] . " to reset your password";
+        $message = "Copy and paste this url in your browser $password_reset_url";
+        $email = new CakeEmail(array(
+            'log' => $this->config['email_sending'] ? 'false' : 'true'
+        ));
+
+        $email->from(array('nanoauth@neseapl.com' => 'NanoAuth'))
+            ->to($user['NaUser']['email'])
+            ->subject('Password Reset Code')
+            ->send($message);
+
+        return true;
+    }
 /**
  * logout method
  *

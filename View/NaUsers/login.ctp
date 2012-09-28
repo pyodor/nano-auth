@@ -8,4 +8,7 @@
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
+<div id='forgot_password'>
+    <?php echo $this->Html->link('Forgot Password', '/forgot_password'); ?>
+</div>
 </div>

@@ -1,8 +1,13 @@
 <?php
 
 class NanoAuthAppController extends AppController {
+    public $allowed_actions = array(
+        'add', 'forgot_password', 'password_reset'
+    );
+
     public $components = array(
         'Session',
+        'Security',
         'Auth' => array(
             'loginAction' => array(
                 'controller' => 'na_users',
@@ -17,14 +22,16 @@ class NanoAuthAppController extends AppController {
         )
     );
 
+    public $config = null;
+
     public function beforeFilter() {
         $this->loadUserConfig();
-        $this->Auth->allow('add');
+        $this->Auth->allow($this->allowed_actions);
     }
 
     private function loadUserConfig() {
-        $config = Configure::read("NanoAuth");
-        if($config) {
+        $this->config = Configure::read("NanoAuth");
+        if($this->config) {
             $this->Auth->loginRedirect = array(
                 'controller' => isset($config['loginRedirect']['controller']) ? $config['loginRedirect']['controller'] : null,
                 'action' => isset($config['loginRedirect']['action']) ? $config['loginRedirect']['action'] : null,

@@ -11,7 +11,7 @@
 			<?php echo h($naUser['NaUser']['username']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Password Crypt'); ?></dt>
+		<dt><?php echo __('Password'); ?></dt>
 		<dd>
 			<?php echo h($naUser['NaUser']['password']); ?>
 			&nbsp;

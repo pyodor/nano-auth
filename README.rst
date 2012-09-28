@@ -4,6 +4,15 @@ Welcome to NanoAuth a CakePHP Plugin
 
 ``NanoAuth`` is an Authenctication Plugin for CakePHP  that utilizes and wraps Auth Component of the framework.   
 
+Features
+------------------
+
+- Full CRUD user management with pagination
+- Utilizes CakePHP Auth Component
+- Supports app level configuration (i.e setting landing page after login or logout)
+- Forgot Password feature (sends password reset code)
+- Password reset page (using the password reset code)
+
 Installation
 --------------
 
@@ -23,6 +32,14 @@ In your app/Config/bootstrap.php add this::
 
 Usage
 --------------
+
+Default routes::
+
+    /login
+    /logout
+    /user/add
+    /forgot_password
+    /password_reset/*
 
 Accessing the authentication page::
 
@@ -48,13 +65,11 @@ Default page after login and logout is ``NaUsers/index`` of the plugin, to confi
         'logoutRedirect' => array('controller' => 'MyOtherController', 'action' => 'index'),
     ));
 
-Features
-------------------
+For forgot password feature, the sending of email by default is in debug mode, 
+to enable this in production add this in your Config/core.php under NanoAuth's configuration::
 
-- Full CRUD user management with pagination
-- Utilizes CakePHP Auth Component
-- Supports app level configuration (i.e setting landing page after login or logout)
-    
+    'email_sending' => false,
+
 TODO
 ----------------
 

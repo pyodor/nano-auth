@@ -31,4 +31,7 @@
 
     Router::connect('/users/add', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'add'));
 
+    Router::connect('/forgot_password', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'forgot_password'));
+    Router::connect('/password_reset/*', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'password_reset'));
+
 

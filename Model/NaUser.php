@@ -20,34 +20,40 @@ class NaUser extends NanoAuthAppModel {
  */
 	public $validate = array(
 		'username' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			'alphaNumeric' => array(
+				'rule' => array('alphaNumeric'),
+				'message' => 'Required',
+				'allowEmpty' => false,
+				'required' => true,
+            ),
+            'isUnique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'This username already used.',
+            )
 		),
 		'password' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			'alphanumeric' => array(
+				'rule' => array('alphaNumeric'),
+				'message' => 'Required',
+				'allowEmpty' => false,
+				'required' => true,
+            ),
+            'minLength' => array(
+                'rule' => array('minLength', 8),
+                'message' => 'Password must be 8 characters minimum length',
+            )
 		),
 		'email' => array(
-			'email' => array(
-				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+            'email' => array(
+                'rule' => array('email'),
+                'message' => 'Must be an email format (i.e. user@domain.tld)',
+                'allowEmpty' => false,
+                'required' => true,
+            ),
+            'isUnique' => array(
+                'rule' => array('isUnique'),
+                'message' => 'This already a user using this email address',
+            )
 		),
     );
 
