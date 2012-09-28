@@ -58,6 +58,32 @@ You can access logged-in user in your controller like this::
     }
     debug($user); // see what's inside user
 
+Accessing NanoAuth's User model from your app controller::
+
+    public $uses = array('NanoAuth.NaUser');
+
+    public function index() {
+        debug($this->NaUser->find('all'));
+    }
+
+Relating NanoAuth's User model with your app's models, for example Profile model::
+
+    // Inside your app Profile model
+    class Profile extends AppModel {
+        public $belongsTo = array(
+            'NaUser' => array(
+                'foreignKey' => 'user_id',
+            )
+        );
+    }
+
+    // And then accessing it on the controller
+    public $uses = array('NanoAuth.NaUser');
+
+    public function index() {
+        debug($this->Profile->find('all'));
+    }
+    
 Configuration
 --------------
 
