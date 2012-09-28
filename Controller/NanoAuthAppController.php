@@ -18,6 +18,24 @@ class NanoAuthAppController extends AppController {
     );
 
     public function beforeFilter() {
+        $this->loadUserConfig();
+        $this->Auth->allow('add');
+    }
+
+    private function loadUserConfig() {
+        $config = Configure::read("NanoAuth");
+        if($config) {
+            $this->Auth->loginRedirect = array(
+                'controller' => isset($config['loginRedirect']['controller']) ? $config['loginRedirect']['controller'] : null,
+                'action' => isset($config['loginRedirect']['action']) ? $config['loginRedirect']['action'] : null,
+                'plugin' => isset($config['loginRedirect']['plugin']) ? $config['loginRedirect']['plugin'] : null,
+            );
+            $this->Auth->logoutRedirect = array(
+                'controller' => isset($config['logoutRedirect']['controller']) ? $config['logoutRedirect']['controller'] : null,
+                'action' => isset($config['logoutRedirect']['action']) ? $config['logoutRedirect']['action'] : null,
+                'plugin' => isset($config['logoutRedirect']['plugin']) ? $config['logoutRedirect']['plugin'] : null,
+            );
+        }
     }
 }
 
