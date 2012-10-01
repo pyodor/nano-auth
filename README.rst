@@ -37,7 +37,7 @@ Default routes::
 
     /login
     /logout
-    /user/add
+    /users/add
     /forgot_password
     /password_reset/*
 
