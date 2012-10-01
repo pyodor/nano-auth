@@ -18,7 +18,7 @@ Installation
 
 Clone the plugin inside your app/Plugin directory::
 
-    git clone http://[your_username]@202.172.229.26/rhodecode/NanoAuth
+    git clone http://[your_username]@202.172.229.26/rhodecode/CakePHP_Plugin/NanoAuth
 
 Migrate the latest schema, inside your app directory do this::
 
