@@ -1,11 +1,11 @@
 <?php
-App::uses('NaUsersController', 'NanoAuth.Controller');
+App::uses('UsersController', 'NanoAuth.Controller');
 
 /**
- * NaUsersController Test Case
+ * UsersController Test Case
  *
  */
-class NaUsersControllerTest extends ControllerTestCase {
+class UsersControllerTest extends ControllerTestCase {
 
 /**
  * Fixtures
@@ -13,7 +13,7 @@ class NaUsersControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.nano_auth.na_user'
+		'plugin.nano_auth.user'
 	);
 
 /**

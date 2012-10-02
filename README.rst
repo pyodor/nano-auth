@@ -12,6 +12,7 @@ Features
 - Supports app level configuration (i.e setting landing page after login or logout)
 - Forgot Password feature (sends password reset code)
 - Password reset page (using the password reset code)
+- With Unit & Functional Testing and Code Coverage  (in progress)
 
 Installation
 --------------
@@ -98,9 +99,18 @@ to enable this in production add this in your Config/core.php under NanoAuth's c
 
     'email_sending' => true,
 
+Testing
+--------------
+
+To run the tests using web runner accessing the following url below 
+and run the tests under ``Plugins/NanoAuth``::
+    
+    http://your-apps-url/webroot/test.php
+
 TODO
 ----------------
 
+- Unit Testing and Code Coverage
 - ACL support
 - Custom template
 - API (json, xml) generator for front-end use 

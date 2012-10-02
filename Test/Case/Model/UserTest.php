@@ -1,11 +1,11 @@
 <?php
-App::uses('NaUser', 'NanoAuth.Model');
+App::uses('User', 'NanoAuth.Model');
 
 /**
- * NaUser Test Case
+ * User Test Case
  *
  */
-class NaUserTest extends CakeTestCase {
+class UserTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -13,7 +13,7 @@ class NaUserTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.nano_auth.na_user'
+		'plugin.nano_auth.user'
 	);
 
 /**
@@ -23,7 +23,7 @@ class NaUserTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->NaUser = ClassRegistry::init('NanoAuth.NaUser');
+		$this->User = ClassRegistry::init('NanoAuth.User');
 	}
 
 /**
@@ -32,9 +32,11 @@ class NaUserTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->NaUser);
+		unset($this->User);
 
 		parent::tearDown();
 	}
 
+    public function testUser() {
+    }
 }

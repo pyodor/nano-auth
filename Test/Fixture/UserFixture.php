@@ -1,9 +1,9 @@
 <?php
 /**
- * NaUserFixture
+ * UserFixture
  *
  */
-class NaUserFixture extends CakeTestFixture {
+class UserFixture extends CakeTestFixture {
 
 /**
  * Fields
