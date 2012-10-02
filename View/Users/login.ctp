@@ -1,5 +1,5 @@
-<div class="naUsers form">
-<?php echo $this->Form->create('NaUser'); ?>
+<div class="Users form">
+<?php echo $this->Form->create('User'); ?>
 	<fieldset>
 		<legend><?php echo __('User Login'); ?></legend>
 	<?php

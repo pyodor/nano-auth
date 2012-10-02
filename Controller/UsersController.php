@@ -2,11 +2,11 @@
 App::uses('NanoAuthAppController', 'NanoAuth.Controller');
 App::uses('CakeEmail', 'Network/Email');
 /**
- * NaUsers Controller
+ * Users Controller
  *
- * @property NaUser $NaUser
+ * @property User $User
  */
-class NaUsersController extends NanoAuthAppController {
+class UsersController extends NanoAuthAppController {
 /**
  * beforeFilter method
  *
@@ -23,15 +23,15 @@ class NaUsersController extends NanoAuthAppController {
  */
     public function password_reset($code=NULL) {
         if($this->request->is('post')) {
-            $user = $this->NaUser->findByPasswordResetCode($this->request->data['NaUser']['code']);
-            if($this->request->data['NaUser']['password'] != $this->request->data['NaUser']['password_confirmation']) {
+            $user = $this->User->findByPasswordResetCode($this->request->data['User']['code']);
+            if($this->request->data['User']['password'] != $this->request->data['User']['password_confirmation']) {
                 $this->Session->setFlash("Password doesn't match");
             }
             else {
-                $this->NaUser->read(null, $user['NaUser']['id']);
-                $this->NaUser->set('password', $this->request->data['NaUser']['password']);
-                $this->NaUser->set('password_reset_code', '');
-                if($this->NaUser->save()) {
+                $this->User->read(null, $user['User']['id']);
+                $this->User->set('password', $this->request->data['User']['password']);
+                $this->User->set('password_reset_code', '');
+                if($this->User->save()) {
                     $this->Session->setFlash('Password reset successfull, you may now login');
                     $this->redirect('/login');
                 }
@@ -41,7 +41,7 @@ class NaUsersController extends NanoAuthAppController {
             }
         }
         else {
-            $user = $this->NaUser->findByPasswordResetCode($code);
+            $user = $this->User->findByPasswordResetCode($code);
             if(!$user) {
                 $this->Session->setFlash('Password reset code is invalid');
             }
@@ -55,16 +55,16 @@ class NaUsersController extends NanoAuthAppController {
  */
     public function forgot_password() {
         if($this->request->is('post')) {
-            $user = $this->NaUser->findByEmail($this->request->data['NaUser']['email']);
+            $user = $this->User->findByEmail($this->request->data['User']['email']);
             if(!$user) {
                 $this->Session->setFlash('Email address not found');
             }
             else {
-                $reset_code = Security::hash($this->request->data['NaUser']['email']);
-                $this->NaUser->read(null, $user['NaUser']['id']);
-                $this->NaUser->set('password_reset_code', $reset_code);
-                $this->NaUser->save();
-                $user = $this->NaUser->read(null, $user['NaUser']['id']);
+                $reset_code = Security::hash($this->request->data['User']['email']);
+                $this->User->read(null, $user['User']['id']);
+                $this->User->set('password_reset_code', $reset_code);
+                $this->User->save();
+                $user = $this->User->read(null, $user['User']['id']);
                 if($this->sendPasswordResetCode($user)) {
                     $this->Session->setFlash('Password reset code was sent to your email address');
                 }
@@ -76,16 +76,16 @@ class NaUsersController extends NanoAuthAppController {
     }
 
     private function sendPasswordResetCode($user) {
-        if(empty($user['NaUser']['password_reset_code'])) return false;
+        if(empty($user['User']['password_reset_code'])) return false;
         
-        $password_reset_url = "http://" . $this->request->host() . "/password_reset/" . $user['NaUser']['password_reset_code'] . " to reset your password";
+        $password_reset_url = "http://" . $this->request->host() . "/password_reset/" . $user['User']['password_reset_code'] . " to reset your password";
         $message = "Copy and paste this url in your browser $password_reset_url";
         $email = new CakeEmail(array(
             'log' => $this->config['email_sending'] ? 'false' : 'true'
         ));
 
         $email->from(array('nanoauth@neseapl.com' => 'NanoAuth'))
-            ->to($user['NaUser']['email'])
+            ->to($user['User']['email'])
             ->subject('Password Reset Code')
             ->send($message);
 
@@ -97,7 +97,7 @@ class NaUsersController extends NanoAuthAppController {
  * @return void
  */
     public function logout() {
-        $this->Session->delete('NaUser');
+        $this->Session->delete('User');
         $this->redirect($this->Auth->logout());
     }
 
@@ -113,7 +113,7 @@ class NaUsersController extends NanoAuthAppController {
 
         if($this->request->is('post')) {
             if($this->Auth->login()) {
-                $this->Session->write('NaUser', $this->Auth->user());
+                $this->Session->write('User', $this->Auth->user());
                 $this->redirect($this->Auth->redirect());
             }
             else{
@@ -128,8 +128,8 @@ class NaUsersController extends NanoAuthAppController {
  * @return void
  */
     public function index() {
-		$this->NaUser->recursive = 0;
-		$this->set('naUsers', $this->paginate());
+		$this->User->recursive = 0;
+		$this->set('Users', $this->paginate());
 	}
 
 /**
@@ -140,11 +140,11 @@ class NaUsersController extends NanoAuthAppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->NaUser->id = $id;
-		if (!$this->NaUser->exists()) {
+		$this->User->id = $id;
+		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid na user'));
 		}
-		$this->set('naUser', $this->NaUser->read(null, $id));
+		$this->set('User', $this->User->read(null, $id));
 	}
 
 /**
@@ -154,8 +154,8 @@ class NaUsersController extends NanoAuthAppController {
  */
 	public function add() {
         if ($this->request->is('post')) {
-			$this->NaUser->create();
-			if ($this->NaUser->save($this->request->data)) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The na user has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -172,19 +172,19 @@ class NaUsersController extends NanoAuthAppController {
  * @return void
  */
 	public function edit($id = null) {
-		$this->NaUser->id = $id;
-		if (!$this->NaUser->exists()) {
+		$this->User->id = $id;
+		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid na user'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->NaUser->save($this->request->data)) {
+			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The na user has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The na user could not be saved. Please, try again.'));
 			}
 		} else {
-			$this->request->data = $this->NaUser->read(null, $id);
+			$this->request->data = $this->User->read(null, $id);
 		}
 	}
 
@@ -200,11 +200,11 @@ class NaUsersController extends NanoAuthAppController {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}
-		$this->NaUser->id = $id;
-		if (!$this->NaUser->exists()) {
+		$this->User->id = $id;
+		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid na user'));
 		}
-		if ($this->NaUser->delete()) {
+		if ($this->User->delete()) {
 			$this->Session->setFlash(__('Na user deleted'));
 			$this->redirect(array('action' => 'index'));
 		}

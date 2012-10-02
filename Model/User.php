@@ -1,10 +1,10 @@
 <?php
 App::uses('NanoAuthAppModel', 'NanoAuth.Model');
 /**
- * NaUser Model
+ * User Model
  *
  */
-class NaUser extends NanoAuthAppModel {
+class User extends NanoAuthAppModel {
 
 /**
  * Display field
@@ -59,7 +59,7 @@ class NaUser extends NanoAuthAppModel {
 
     
     public function beforeSave($options = array()) {
-        $this->data['NaUser']['password'] = AuthComponent::password($this->data['NaUser']['password']);
+        $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
         return true;
     } 
 }

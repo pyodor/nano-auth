@@ -1,5 +1,5 @@
-<div class="naUsers form">
-<?php echo $this->Form->create(array('controller'=>'NaUsers', 'action'=>'forgot_password')); ?>
+<div class="Users form">
+<?php echo $this->Form->create(array('controller'=>'Users', 'action'=>'forgot_password')); ?>
 	<fieldset>
 		<legend><?php echo __('Forgot Password'); ?></legend>
 	<?php

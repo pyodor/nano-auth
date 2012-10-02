@@ -2,7 +2,7 @@
 
 class NanoAuthAppController extends AppController {
     public $allowed_actions = array(
-        'add', 'forgot_password', 'password_reset'
+        /*'add',*/ 'forgot_password', 'password_reset'
     );
 
     public $components = array(
@@ -10,15 +10,12 @@ class NanoAuthAppController extends AppController {
         'Security',
         'Auth' => array(
             'loginAction' => array(
-                'controller' => 'na_users',
+                'controller' => 'users',
                 'action' => 'login',
                 'plugin' => 'nano_auth'
             ),
-            'authenticate' => array(
-                'Form' => array('userModel' => 'NaUser'),
-            ),
-            'loginRedirect' => array('controller' => 'na_users', 'action' => 'index', 'plugin' => 'nano_auth'),
-            'logoutRedirect' => array('controller' => 'na_users', 'action' => 'index', 'plugin' => 'nano_auth'),
+            'loginRedirect' => array('controller' => 'users', 'action' => 'index', 'plugin' => 'nano_auth'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'index', 'plugin' => 'nano_auth'),
         )
     );
 

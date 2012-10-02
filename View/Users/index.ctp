@@ -1,5 +1,5 @@
-<div class="naUsers index">
-	<h2><?php echo __('Na Users'); ?></h2>
+<div class="Users index">
+	<h2><?php echo __('Users'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -11,18 +11,18 @@
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
-	foreach ($naUsers as $naUser): ?>
+	foreach ($Users as $User): ?>
 	<tr>
-		<td><?php echo h($naUser['NaUser']['id']); ?>&nbsp;</td>
-		<td><?php echo h($naUser['NaUser']['username']); ?>&nbsp;</td>
-		<td><?php echo h($naUser['NaUser']['password']); ?>&nbsp;</td>
-		<td><?php echo h($naUser['NaUser']['email']); ?>&nbsp;</td>
-		<td><?php echo h($naUser['NaUser']['created']); ?>&nbsp;</td>
-		<td><?php echo h($naUser['NaUser']['updated']); ?>&nbsp;</td>
+		<td><?php echo h($User['User']['id']); ?>&nbsp;</td>
+		<td><?php echo h($User['User']['username']); ?>&nbsp;</td>
+		<td><?php echo h($User['User']['password']); ?>&nbsp;</td>
+		<td><?php echo h($User['User']['email']); ?>&nbsp;</td>
+		<td><?php echo h($User['User']['created']); ?>&nbsp;</td>
+		<td><?php echo h($User['User']['updated']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $naUser['NaUser']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $naUser['NaUser']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $naUser['NaUser']['id']), null, __('Are you sure you want to delete # %s?', $naUser['NaUser']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $User['User']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $User['User']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $User['User']['id']), null, __('Are you sure you want to delete # %s?', $User['User']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -45,6 +45,6 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Na User'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
 	</ul>
 </div>

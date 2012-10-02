@@ -26,12 +26,13 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 
-    Router::connect('/login', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'login'));
-    Router::connect('/logout', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'logout'));
+    Router::connect('/login', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'login'));
+    Router::connect('/logout', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'logout'));
 
-    Router::connect('/users/add', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'add'));
+    Router::connect('/users', array('plugin' => 'nano_auth', 'controller' => 'users'));
+    Router::connect('/users/:action/*', array('plugin' => 'nano_auth', 'controller' => 'users'));
 
-    Router::connect('/forgot_password', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'forgot_password'));
-    Router::connect('/password_reset/*', array('plugin' => 'nano_auth', 'controller' => 'na_users', 'action' => 'password_reset'));
+    Router::connect('/forgot_password', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'forgot_password'));
+    Router::connect('/password_reset/*', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'password_reset'));
 
 
