@@ -10,8 +10,8 @@ Features
 - Full CRUD user management with pagination
 - Utilizes CakePHP Auth Component
 - Supports app level configuration (i.e setting landing page after login or logout)
-- Forgot Password feature (sends password reset code)
-- Password reset page (using the password reset code)
+- Forgot Password feature (sends password reset code through email)
+- Password Reset page (using the password reset code)
 - With Unit & Functional Testing and Code Coverage  (in progress)
 - ACL (todo)
 
@@ -109,13 +109,14 @@ to enable this in production add this in your ``myapp/Config/core.php`` under ``
 
     'email_sending' => true,
 
-Testing
+Tests
 --------------
 
-To run the tests using web runner accessing the following url below 
-and run the tests under ``Plugins/NanoAuth``::
+To run the tests using web runner access the test page of your ``myapp``::
     
     http://myapp.com/webroot/test.php
+
+and run all the tests under ``Plugin/NanoAuth``. 
 
 TODO
 ----------------
