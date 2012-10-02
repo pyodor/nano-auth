@@ -117,5 +117,5 @@ Holler me_ or FORK_ it! :)
 
 .. _WTFPL: http://sam.zoy.org/wtfpl/
 .. _me: dado@neseapl.com
-.. _FORK: http://202.172.229.26/rhodecode/NanoAuth/fork
+.. _FORK: http://202.172.229.26/rhodecode/CakePHP_Plugin/NanoAuth/fork
 
