@@ -21,9 +21,9 @@ Installation
 
 Make sure you properly baked your app::
 
-    cake bake
+    cake bake myapp
   
-and provide the following parameters of your app, database setup and some other stuffs.
+and provide the following parameters for your ``myapp``, database setup and some other stuffs.
 
 
 Clone the plugin inside your ``myapp/Plugin`` directory::
