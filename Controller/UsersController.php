@@ -97,7 +97,6 @@ class UsersController extends NanoAuthAppController {
  * @return void
  */
     public function logout() {
-        $this->Session->delete('User');
         $this->redirect($this->Auth->logout());
     }
 
@@ -113,7 +112,6 @@ class UsersController extends NanoAuthAppController {
 
         if($this->request->is('post')) {
             if($this->Auth->login()) {
-                $this->Session->write('User', $this->Auth->user());
                 $this->redirect($this->Auth->redirect());
             }
             else{

@@ -1,5 +1,7 @@
 <?php
 App::uses('NanoAuthAppModel', 'NanoAuth.Model');
+App::uses('AuthComponent', 'Controller/Component');
+
 /**
  * User Model
  *

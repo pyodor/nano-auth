@@ -63,8 +63,9 @@ You may want to make your own route for the login/logout page just add this on y
     Router::connect('/anything-you-like', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'login'));
 
 You can access logged-in user in your controller like this::
-    
-    $user = $this->Session->read('User');
+    App::uses('AuthComponent', 'Controller/Component');
+
+    $user = AuthComponent::user();
     if(!$user) { // user not logged-in
         $this->redirect('/login'); 
     }
@@ -112,11 +113,12 @@ to enable this in production add this in your ``myapp/Config/core.php`` under ``
 Tests
 --------------
 
+Make sure you installed properly ``PHPUnit`` and ``Xdebug`` for testing
 To run the tests using web runner access the test page of your ``myapp``::
     
-    http://myapp.com/webroot/test.php
+    http://myapp.com/test.php
 
-and run all the tests under ``Plugin/NanoAuth``. 
+and run all the tests under ``Plugins->NanoAuth``. 
 
 TODO
 ----------------
