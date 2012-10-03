@@ -57,9 +57,8 @@ class User extends NanoAuthAppModel {
 		),
     );
 
-    
     public function beforeSave($options = array()) {
         $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
         return true;
-    } 
+    }
 }

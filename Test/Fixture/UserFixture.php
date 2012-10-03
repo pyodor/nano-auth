@@ -10,17 +10,18 @@ class UserFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+    public $fields = array(
+        'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'password_crypt' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'password_reset_code' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'created' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
-		'updated' => array('type' => 'timestamp', 'null' => false, 'default' => '0000-00-00 00:00:00'),
+		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'updated' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'username' => array('column' => array('username', 'email'), 'unique' => 1),
-			'password_crypt' => array('column' => array('password_crypt', 'created', 'updated'), 'unique' => 0)
+			'password' => array('column' => array('password', 'created', 'updated'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
@@ -33,12 +34,29 @@ class UserFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'username' => 'Lorem ipsum dolor sit amet',
-			'password_crypt' => 'Lorem ipsum dolor sit amet',
-			'email' => 'Lorem ipsum dolor sit amet',
-			'created' => 1348654541,
-			'updated' => 1348654541
-		),
+			'username' => 'user1',
+			'password' => 'user1pass',
+			'email' => 'user1@dot.com',
+			'created' => '2012-10-03 03:36',
+			'updated' => '2012-10-03 03:36'
+        ),
+        array(
+			'id' => 2,
+			'username' => 'user2',
+			'password' => 'user2pass',
+			'email' => 'user2@dot.com',
+			'created' => '2012-10-03 03:36',
+			'updated' => '2012-10-03 03:36'
+        ),
+        array(
+			'id' => 3,
+			'username' => 'user3',
+			'password' => 'user3pass',
+			'email' => 'user3@dot.com',
+			'created' => '2012-10-03 03:36',
+			'updated' => '2012-10-03 03:36'
+        ),
+        
 	);
 
 }

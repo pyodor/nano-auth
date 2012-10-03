@@ -35,7 +35,7 @@ class NanoAuthSchema extends CakeSchema {
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'username' => array('column' => array('username', 'email'), 'unique' => 1),
-			'password_crypt' => array('column' => array('password', 'created', 'updated'), 'unique' => 0)
+			'password' => array('column' => array('password', 'created', 'updated'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
