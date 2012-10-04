@@ -63,6 +63,7 @@ You may want to make your own route for the login/logout page just add this on y
     Router::connect('/anything-you-like', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'login'));
 
 You can access logged-in user in your controller like this::
+    
     App::uses('AuthComponent', 'Controller/Component');
 
     $user = AuthComponent::user();
