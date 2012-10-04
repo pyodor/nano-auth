@@ -21,7 +21,7 @@ class UsersControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testIndex() {
+    public function testIndex() {
 	}
 
 /**
@@ -55,5 +55,41 @@ class UsersControllerTest extends ControllerTestCase {
  */
 	public function testDelete() {
 	}
+    
+    public function testLoginRequired() {
+        $this->testAction('/users'); // access login required resource
+        $this->assertStringEndsWith('/login', $this->headers['Location']); // should redirect to login  
+	}
 
+    private function mockLoggedUser() {
+        // mock user
+        $Users = $this->generate('NanoAuth.Users', array(
+            'components' => array(
+                'Auth' => array('user'),
+            )
+        ));
+        // AuthComponent::user('id') must be available
+        $Users->Auth->staticExpects($this->any())
+            ->method('user')
+            ->with('id')
+            ->will($this->returnValue(2));
+
+        return $Users;
+    }
+
+    public function testAccessResourceUserIsLoggedIn() {
+        $this->mockLoggedUser(); // logged a user   
+        $this->testAction('/users'); // access login required resource
+        $this->assertFalse(isset($this->headers['Location'])); // no redirection to /login  
+    }
+
+    public function testResourceNoAuthenticationRequired() {
+        $Users = $this->mockLoggedUser();
+        $this->testAction('/users'); // access login required resource
+        $expected = array(
+            'forgot_password',
+            'password_reset'
+        );
+        $this->assertEquals($expected, $Users->Auth->allowedActions);
+    }
 }
