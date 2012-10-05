@@ -22,6 +22,9 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
     public function testIndex() {
+        $this->mockLoggedUser(); // logged a user   
+        $this->testAction('/users'); // access login required resource
+        $this->assertArrayHasKey('Users', $this->vars);
 	}
 
 /**
@@ -30,6 +33,18 @@ class UsersControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testView() {
+        $this->mockLoggedUser(); // logged a user   
+        // viewing existing user
+        $this->testAction('/users/view/1');
+        $this->assertEquals(1, $this->vars['User']['User']['id']);
+
+        // viewing non-existing user
+        try {
+            $this->testAction('/users/view/999');
+        }
+        catch(Exception $ex) {
+            $this->assertInstanceOf('NotFoundException', $ex);
+        }
 	}
 
 /**
@@ -37,7 +52,18 @@ class UsersControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testAdd() {
+    public function testAdd() {
+        $this->mockLoggedUser(); // logged a user   
+        // data can be saved
+        $data = array(
+            'User' => array(
+                'username' => 'user6',
+                'password' => 'user6pass',
+                'email' => 'user6@dot.com'
+            )
+        );
+        $this->testAction('/users/add', array('data' => $data));
+        $this->assertStringEndsWith('/users', $this->headers['Location']); // should redirect users list after saving 
 	}
 
 /**
@@ -45,7 +71,7 @@ class UsersControllerTest extends ControllerTestCase {
  *
  * @return void
  */
-	public function testEdit() {
+    public function testEdit() {
 	}
 
 /**
@@ -91,5 +117,23 @@ class UsersControllerTest extends ControllerTestCase {
             'password_reset'
         );
         $this->assertEquals($expected, $Users->Auth->allowedActions);
+    }
+
+    public function testForgotPassword() {
+        // with existing email address
+        $data = array(
+            'User' => array(
+                'email' => 'user1@dot.com'
+            )
+        );
+        $this->testAction('/forgot_password', array('data' => $data));
+        
+        // with non-existing email address
+        $data = array(
+            'User' => array(
+                'email' => 'user1@dotdot.com'
+            )
+        );
+        $this->testAction('/forgot_password', array('data' => $data));
     }
 }
