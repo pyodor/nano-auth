@@ -32,6 +32,9 @@
     Router::connect('/users', array('plugin' => 'nano_auth', 'controller' => 'users'));
     Router::connect('/users/:action/*', array('plugin' => 'nano_auth', 'controller' => 'users'));
 
+    Router::connect('/groups', array('plugin' => 'nano_auth', 'controller' => 'groups'));
+    Router::connect('/groups/:action/*', array('plugin' => 'nano_auth', 'controller' => 'groups'));
+    
     Router::connect('/forgot_password', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'forgot_password'));
     Router::connect('/password_reset/*', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'password_reset'));
 
