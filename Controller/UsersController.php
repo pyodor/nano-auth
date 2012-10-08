@@ -9,11 +9,11 @@ App::uses('CakeEmail', 'Network/Email');
 class UsersController extends NanoAuthAppController {
 /**
  * beforeFilter method
- *
  * @return void
  */
     public function beforeFilter() {
         parent::beforeFilter();
+        $this->Acl->allow('Users', 'pages', '*');
     }
 
 /**
@@ -126,6 +126,7 @@ class UsersController extends NanoAuthAppController {
  * @return void
  */
     public function index() {
+        debug($this->Acl->check('Users', 'Users'));
 		$this->User->recursive = 0;
 		$this->set('Users', $this->paginate());
 	}
@@ -159,7 +160,8 @@ class UsersController extends NanoAuthAppController {
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
-		}
+        }
+        //$this->set('groups', $this->User->Group->find('list'));
 	}
 
 /**

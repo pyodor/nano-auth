@@ -59,8 +59,10 @@ class User extends NanoAuthAppModel {
 		),
     );
 
+    /*
     public $belongsTo = array('Group');
     public $actsAs = array('Acl' => array('type' => 'requester'));
+
 
     public function parentNode() {
         if (!$this->id && empty($this->data)) {
@@ -77,6 +79,11 @@ class User extends NanoAuthAppModel {
             return array('Group' => array('id' => $groupId));
         }
     }
+
+    public function bindNode($user) {
+        return array('model' => 'Group', 'foreign_key' => $user['User']['group_id']);
+    }
+    */
 
     public function beforeSave($options = array()) {
         $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);

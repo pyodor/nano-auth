@@ -32,11 +32,12 @@ class Group extends NanoAuthAppModel {
             )
 		),
     );
-    
+
+    /*
     public $actsAs = array('Acl' => array('type' => 'requester'));
 
     public function parentNode() {
-        return null;
+        return $this->data['Group']['name'];
     }
-    
+     */
 }

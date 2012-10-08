@@ -8,7 +8,11 @@ class NanoAuthAppController extends AppController {
     public $components = array(
         'Session',
         'Security',
+        'Acl',
         'Auth' => array(
+            /*'authorize' => array(
+                'Actions' => array('actionPath' => 'controllers')
+            ),*/
             'loginAction' => array(
                 'controller' => 'users',
                 'action' => 'login',
