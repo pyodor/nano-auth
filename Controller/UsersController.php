@@ -126,7 +126,7 @@ class UsersController extends NanoAuthAppController {
  * @return void
  */
     public function index() {
-        debug($this->Acl->check('Users', 'Users'));
+        debug($this->Acl->allow('Users', 'groups'));
 		$this->User->recursive = 0;
 		$this->set('Users', $this->paginate());
 	}

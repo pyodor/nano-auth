@@ -8,33 +8,33 @@ App::uses('NanoAuthAppController', 'NanoAuth.Controller');
 class GroupsController extends NanoAuthAppController {
 
     public function init() {
-        $aro = $this->Acl->Aro;
-        /*$groups = array(
+        /*($aro = $this->Acl->Aco;
+        $groups = array(
             0 => array(
-                'alias' => 'Admins'
+                'alias' => 'groups'
             ),
             1 => array(
-                'alias' => 'Users'
+                'alias' => 'users'
             ),
         );
         foreach ($groups as $data) {
             $aro->create();
             $aro->save($data);
-        }
+        }*/
 
-        $aro = new Aro();*/
+        $aro = new Aro();
         $users = array(
             0 => array(
                 'alias' => 'admin',
-                'parent_id' => 1,
+                'parent_id' => 3,
                 'model' => 'User',
                 'foreign_key' => 1,
             ),
             1 => array(
                 'alias' => 'normal',
-                'parent_id' => 2,
+                'parent_id' => 4,
                 'model' => 'User',
-                'foreign_key' => 16,
+                'foreign_key' => 2,
             ),
         );
 
