@@ -8,7 +8,7 @@ class NanoAuthAppController extends AppController {
     public $components = array(
         'Session',
         'Security',
-        'Acl',
+        'NanoAuth.NaAcl',
         'Auth' => array(
             /*'authorize' => array(
                 'Actions' => array('actionPath' => 'controllers')
@@ -28,6 +28,7 @@ class NanoAuthAppController extends AppController {
     public function beforeFilter() {
         $this->loadUserConfig();
         $this->Auth->allow($this->allowed_actions);
+        $this->NaAcl->checkPermission($this);
     }
 
     private function loadUserConfig() {

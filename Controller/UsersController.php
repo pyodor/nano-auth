@@ -13,7 +13,7 @@ class UsersController extends NanoAuthAppController {
  */
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Acl->allow('Users', 'pages', '*');
+        //$this->Acl->allow('Users', 'pages', '*');
     }
 
 /**
@@ -126,7 +126,6 @@ class UsersController extends NanoAuthAppController {
  * @return void
  */
     public function index() {
-        debug($this->Acl->allow('Users', 'groups'));
 		$this->User->recursive = 0;
 		$this->set('Users', $this->paginate());
 	}
