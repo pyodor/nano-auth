@@ -3,12 +3,118 @@ class NanoAuthSchema extends CakeSchema {
 
 	public $file = 'schema_3.php';
 
-	public function before($event = array()) {
+    public function before($event = array()) {
+        $db = ConnectionManager::getDataSource($this->connection);
+        $db->cacheSources = false;
 		return true;
 	}
 
-	public function after($event = array()) {
-	}
+    public function after($event = array()) {
+        if (isset($event['create'])) {
+            switch ($event['create']) {
+            case 'users':
+                $user = ClassRegistry::init('User');
+                $user->create();
+                $user->save(array(
+                    'User' => array(
+                        'username' => 'admin',
+                        'password' => 'f03a008f086621ee18f276afeb3e6eae0e90bd68', // admin123
+                        'email' => 'admin@somedomain.com',
+                        'group_id' => 1, // refer to aros (group)
+                    )
+                ));
+                $user->create();
+                $user->save(array(
+                    'User' => array(
+                        'username' => 'user',
+                        'password' => '6b4cb673c52476fbc8ab5fa44fa95446bb1a8fc9', // user12345
+                        'email' => 'user@somedomain.com',
+                        'group_id' => 2, // this refers to aros id 2
+                    )
+                ));
+                break;
+            case 'aros':
+                $aro = ClassRegistry::init('Aro');
+                $aro->create();
+                $aro->save(array(
+                    'Aro' => array(
+                        'alias' => 'Administrator',
+                        'lft' => 1,
+                        'rght' => 1,
+                    )
+                ));
+                $aro->create();
+                $aro->save(array(
+                    'Aro' => array(
+                        'alias' => 'User',
+                        'lft' => 3,
+                        'rght' => 4,
+                    )
+                ));
+                break;
+            case 'acos':
+                $aco = ClassRegistry::init('Aco');
+                $aco->create();
+                $aco->save(array(
+                    'Aco' => array(
+                        'alias' => 'users',
+                        'lft' => 1,
+                        'rght' => 1,
+                    )
+                ));
+                break;
+            case 'aros_acos':
+                $aros_acos = ClassRegistry::init('ArosAco');
+                $aros_acos->create();
+                $aros_acos->save(array(
+                    'ArosAco' => array(
+                        'aro_id' => 1,
+                        'aco_id' => 1,
+                        '_create' => 1,
+                        '_read' => 1,
+                        '_update' => 1,
+                        '_delete' => 1,
+                    )
+                ));
+                $aros_acos->create();
+                $aros_acos->save(array(
+                    'ArosAco' => array(
+                        'aro_id' => 2,
+                        'aco_id' => 1,
+                        '_create' => 0,
+                        '_read' => 0,
+                        '_update' => 0,
+                        '_delete' => 0,
+                    )
+                ));
+                break;
+            case 'aros_acos_extensions':
+                $aros_acos_ext = ClassRegistry::init('ArosAcosExtension');
+                $aros_acos_ext->create();
+                $aros_acos_ext->save(array(
+                    'ArosAcosExtension' => array(
+                        'aros_acos_id' => 1,
+                        'action_name' => 'login',
+                    )
+                ));
+                $aros_acos_ext->create();
+                $aros_acos_ext->save(array(
+                    'ArosAcosExtension' => array(
+                        'aros_acos_id' => 1,
+                        'action_name' => 'logout',
+                    )
+                ));
+                $aros_acos_ext->create();
+                $aros_acos_ext->save(array(
+                    'ArosAcosExtension' => array(
+                        'aros_acos_id' => 2,
+                        'action_name' => 'logout',
+                    )
+                ));
+                break;
+            }
+        }
+    }
 
 	public $acos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
@@ -54,28 +160,16 @@ class NanoAuthSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'aros_acos_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'index'),
 		'action_name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'allow' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'updated' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'aros_acos_id' => array('column' => array('aros_acos_id', 'action_name', 'allow', 'created', 'updated'), 'unique' => 0)
+			'aros_acos_id' => array('column' => array('aros_acos_id', 'action_name', 'created', 'updated'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
-	public $groups = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 40, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'description' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'updated' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'name' => array('column' => array('name', 'description', 'created', 'updated'), 'unique' => 0)
-		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
-	);
-	public $users = array(
+    
+    public $users = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),

@@ -5,10 +5,13 @@ class NaAclComponent extends AclComponent {
     public $defaultActions = array('create', 'read', 'update', 'delete');
 
     public function checkPermission($route) {
+        //debug(AuthComponent::user());die;
         $group = $this->Aro->findById(AuthComponent::user('group_id'));
         //debug($group);die;
-        if(!$group) return false;
-        
+        //if(!$group) {
+        //    throw new ForbiddenException();
+        //}
+
         $aro = $group['Aro']['alias'];
         $aco = $route->request->controller;
         $action = $route->request->action;
@@ -24,15 +27,15 @@ class NaAclComponent extends AclComponent {
             case 'edit':
                 $action = 'update';
         }
-        
+
+        // if not added as aro  and aco, return as is 
+        if(!$this->Aro->node($aro) || !$this->Aco->node($aco)) {
+            return;
+        }
+
         //debug($aro);
         //debug($aco);
         //debug($action);
-
-        // check by controller level first if it was added on node 
-        if(!$this->check($aro, $aco)) {
-            throw new ForbiddenException();
-        }
 
         if(in_array($action, $this->defaultActions)) {
             if(!$this->check($aro, $aco, $action)) {
