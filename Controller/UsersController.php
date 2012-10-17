@@ -126,7 +126,7 @@ class UsersController extends NanoAuthAppController {
  * @return void
  */
     public function index() {
-		$this->User->recursive = 0;
+        $this->User->recursive = 0;
 		$this->set('Users', $this->paginate());
 	}
 
@@ -160,7 +160,11 @@ class UsersController extends NanoAuthAppController {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
         }
-        //$this->set('groups', $this->User->Group->find('list'));
+        $this->set('groups', $this->User->Group->find('list', array(
+            'fields' => array(
+                'Aro.id', 'Aro.alias'
+            )
+        )));
 	}
 
 /**
@@ -175,16 +179,22 @@ class UsersController extends NanoAuthAppController {
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
 		}
-		if ($this->request->is('post') || $this->request->is('put')) {
+        if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved'));
 				return $this->redirect(array('action' => 'index'));
-			} else {
+            } else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->User->read(null, $id);
-		}
+        }
+        
+        $this->set('groups', $this->User->Group->find('list', array(
+            'fields' => array(
+                'Aro.id', 'Aro.alias'
+            )
+        )));
 	}
 
 /**

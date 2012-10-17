@@ -1,5 +1,5 @@
 <div class="Users view">
-<h2><?php  echo __('Na User'); ?></h2>
+<h2><?php  echo __('User'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
@@ -19,6 +19,11 @@
 		<dt><?php echo __('Email'); ?></dt>
 		<dd>
 			<?php echo h($User['User']['email']); ?>
+			&nbsp;
+        </dd>
+        <dt><?php echo __('Group'); ?></dt>
+		<dd>
+			<?php echo h($User['Group']['alias']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Created'); ?></dt>
