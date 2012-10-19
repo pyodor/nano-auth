@@ -39,16 +39,12 @@ class NanoAuthSchema extends CakeSchema {
                 $aro->save(array(
                     'Aro' => array(
                         'alias' => 'Administrator',
-                        'lft' => 1,
-                        'rght' => 1,
                     )
                 ));
                 $aro->create();
                 $aro->save(array(
                     'Aro' => array(
                         'alias' => 'User',
-                        'lft' => 3,
-                        'rght' => 4,
                     )
                 ));
                 break;
@@ -58,8 +54,24 @@ class NanoAuthSchema extends CakeSchema {
                 $aco->save(array(
                     'Aco' => array(
                         'alias' => 'users',
-                        'lft' => 1,
-                        'rght' => 1,
+                    )
+                ));
+                $aco->create();
+                $aco->save(array(
+                    'Aco' => array(
+                        'alias' => 'aros',
+                    )
+                ));
+                $aco->create();
+                $aco->save(array(
+                    'Aco' => array(
+                        'alias' => 'acos',
+                    )
+                ));
+                $aco->create();
+                $aco->save(array(
+                    'Aco' => array(
+                        'alias' => 'aros_acos',
                     )
                 ));
                 break;
@@ -79,6 +91,42 @@ class NanoAuthSchema extends CakeSchema {
                 $aros_acos->create();
                 $aros_acos->save(array(
                     'ArosAco' => array(
+                        'aro_id' => 1,
+                        'aco_id' => 2,
+                        '_create' => 1,
+                        '_read' => 1,
+                        '_update' => 1,
+                        '_delete' => 1,
+                    )
+                ));
+                $aros_acos->create();
+                $aros_acos->save(array(
+                    'ArosAco' => array(
+                        'aro_id' => 1,
+                        'aco_id' => 3,
+                        '_create' => 1,
+                        '_read' => 1,
+                        '_update' => 1,
+                        '_delete' => 1,
+                    )
+                ));
+                $aros_acos->create();
+                $aros_acos->save(array(
+                    'ArosAco' => array(
+                        'aro_id' => 1,
+                        'aco_id' => 4,
+                        '_create' => 1,
+                        '_read' => 1,
+                        '_update' => 1,
+                        '_delete' => 1,
+                    )
+                ));
+
+
+
+                $aros_acos->create();
+                $aros_acos->save(array(
+                    'ArosAco' => array(
                         'aro_id' => 2,
                         'aco_id' => 1,
                         '_create' => 0,
@@ -88,30 +136,32 @@ class NanoAuthSchema extends CakeSchema {
                     )
                 ));
                 break;
+
+            /*
             case 'aros_acos_extensions':
                 $aros_acos_ext = ClassRegistry::init('ArosAcosExtension');
                 $aros_acos_ext->create();
                 $aros_acos_ext->save(array(
                     'ArosAcosExtension' => array(
-                        'aros_acos_id' => 1,
+                        'aros_acos_id' => 5,
                         'action_name' => 'login',
                     )
                 ));
                 $aros_acos_ext->create();
                 $aros_acos_ext->save(array(
                     'ArosAcosExtension' => array(
-                        'aros_acos_id' => 1,
+                        'aros_acos_id' => 5,
                         'action_name' => 'logout',
                     )
                 ));
                 $aros_acos_ext->create();
                 $aros_acos_ext->save(array(
                     'ArosAcosExtension' => array(
-                        'aros_acos_id' => 2,
+                        'aros_acos_id' => 1,
                         'action_name' => 'logout',
                     )
                 ));
-                break;
+                break;*/
             }
         }
     }

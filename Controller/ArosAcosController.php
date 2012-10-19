@@ -13,7 +13,8 @@ class ArosAcosController extends NanoAuthAppController {
  * @return void
  */
 	public function index() {
-		$this->ArosAco->recursive = 0;
+        $this->ArosAco->recursive = 1;
+        //debug($this->paginate());die;
 		$this->set('arosAcos', $this->paginate());
 	}
 
@@ -46,7 +47,17 @@ class ArosAcosController extends NanoAuthAppController {
 			} else {
 				$this->Session->setFlash(__('The aros aco could not be saved. Please, try again.'));
 			}
-		}
+        }
+        $this->set('aros', $this->ArosAco->Aro->find('list', array(
+            'fields' => array(
+                'Aro.id', 'Aro.alias'
+            )
+        )));
+        $this->set('acos', $this->ArosAco->Aco->find('list', array(
+            'fields' => array(
+                'Aco.id', 'Aco.alias'
+            )
+        )));
 	}
 
 /**

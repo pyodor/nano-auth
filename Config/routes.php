@@ -26,9 +26,13 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 
-    Router::connect('/login', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'login'));
-    Router::connect('/logout', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'logout'));
+    // Non ACL'ed routes
+    Router::connect('/login', array('plugin' => 'nano_auth', 'controller' => 'pages', 'action' => 'login'));
+    Router::connect('/logout', array('plugin' => 'nano_auth', 'controller' => 'pages', 'action' => 'logout'));
+    Router::connect('/forgot_password', array('plugin' => 'nano_auth', 'controller' => 'pages', 'action' => 'forgot_password'));
+    Router::connect('/password_reset/*', array('plugin' => 'nano_auth', 'controller' => 'pages', 'action' => 'password_reset'));
 
+    // ACL'ed routes
     Router::connect('/users', array('plugin' => 'nano_auth', 'controller' => 'users'));
     Router::connect('/users/:action/*', array('plugin' => 'nano_auth', 'controller' => 'users'));
 
@@ -38,10 +42,7 @@
     Router::connect('/controllers', array('plugin' => 'nano_auth', 'controller' => 'acos'));
     Router::connect('/controllers/:action/*', array('plugin' => 'nano_auth', 'controller' => 'acos'));
     
-    Router::connect('/action', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
-    Router::connect('/action/:action/*', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
-    
-    Router::connect('/forgot_password', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'forgot_password'));
-    Router::connect('/password_reset/*', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'password_reset'));
+    Router::connect('/acl', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
+    Router::connect('/acl/:action/*', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
 
 

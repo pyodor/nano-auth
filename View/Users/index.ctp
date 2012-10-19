@@ -49,6 +49,7 @@
 	<ul>
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Groups'), array('controller' => 'aros', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Controllers'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Controllers'), array('controller' => 'acos', 'action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List ACL'), array('controller' => 'aros_acos', 'action' => 'index')); ?></li>
 	</ul>
 </div>

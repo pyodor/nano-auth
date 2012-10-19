@@ -5,6 +5,13 @@ App::uses('NanoAuthAppModel', 'NanoAuth.Model');
  *
  */
 class ArosAco extends NanoAuthAppModel {
+    public $belongsTo = array(
+		'Aro' => array(
+        ),
+        'Aco' => array(
+		)
+    );
+
     public $hasMany = array(
 		'ActionExtensions' => array(
 			'className' => 'ArosAcosExtension',

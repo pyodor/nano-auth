@@ -14,12 +14,12 @@ class NanoAuthAppController extends AppController {
                 'Actions' => array('actionPath' => 'controllers')
             ),*/
             'loginAction' => array(
-                'controller' => 'users',
+                'controller' => 'pages',
                 'action' => 'login',
                 'plugin' => 'nano_auth'
             ),
             'loginRedirect' => array('controller' => 'users', 'action' => 'index', 'plugin' => 'nano_auth'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'index', 'plugin' => 'nano_auth'),
+            'logoutRedirect' => array('controller' => 'pages', 'action' => 'login', 'plugin' => 'nano_auth'),
         )
     );
 

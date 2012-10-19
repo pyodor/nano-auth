@@ -28,8 +28,9 @@ class NaAclComponent extends AclComponent {
                 $action = 'update';
         }
 
+        //debug($this->Aco->node($aco));
         // if not added as aro  and aco, return as is 
-        if(!$this->Aro->node($aro) || !$this->Aco->node($aco)) {
+        if(!$this->Aco->node($aco)) {
             return;
         }
 
@@ -72,7 +73,6 @@ class NaAclComponent extends AclComponent {
 
         return $aros_acos_ext;
     }
-
 
 }
 

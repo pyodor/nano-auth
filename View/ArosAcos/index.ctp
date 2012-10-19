@@ -1,10 +1,10 @@
 <div class="arosAcos index">
-	<h2><?php echo __('Aros Acos'); ?></h2>
+	<h2><?php echo __('ACLs'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('aro_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('aco_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('aro_id', 'Group'); ?></th>
+			<th><?php echo $this->Paginator->sort('aco_id', 'Controller'); ?></th>
 			<th><?php echo $this->Paginator->sort('_create'); ?></th>
 			<th><?php echo $this->Paginator->sort('_read'); ?></th>
 			<th><?php echo $this->Paginator->sort('_update'); ?></th>
@@ -15,8 +15,8 @@
 	foreach ($arosAcos as $arosAco): ?>
 	<tr>
 		<td><?php echo h($arosAco['ArosAco']['id']); ?>&nbsp;</td>
-		<td><?php echo h($arosAco['ArosAco']['aro_id']); ?>&nbsp;</td>
-		<td><?php echo h($arosAco['ArosAco']['aco_id']); ?>&nbsp;</td>
+		<td><?php echo h($arosAco['Aro']['alias']); ?>&nbsp;</td>
+		<td><?php echo h($arosAco['Aco']['alias']); ?>&nbsp;</td>
 		<td><?php echo h($arosAco['ArosAco']['_create']); ?>&nbsp;</td>
 		<td><?php echo h($arosAco['ArosAco']['_read']); ?>&nbsp;</td>
 		<td><?php echo h($arosAco['ArosAco']['_update']); ?>&nbsp;</td>
@@ -47,6 +47,8 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Aros Aco'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New ACL'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Controllers'), array('controller' => 'acos', 'action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Groups'), array('controller' => 'aros', 'action' => 'index')); ?> </li>
 	</ul>
 </div>
