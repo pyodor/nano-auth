@@ -32,8 +32,14 @@
     Router::connect('/users', array('plugin' => 'nano_auth', 'controller' => 'users'));
     Router::connect('/users/:action/*', array('plugin' => 'nano_auth', 'controller' => 'users'));
 
-    Router::connect('/groups', array('plugin' => 'nano_auth', 'controller' => 'groups'));
-    Router::connect('/groups/:action/*', array('plugin' => 'nano_auth', 'controller' => 'groups'));
+    Router::connect('/groups', array('plugin' => 'nano_auth', 'controller' => 'aros'));
+    Router::connect('/groups/:action/*', array('plugin' => 'nano_auth', 'controller' => 'aros'));
+    
+    Router::connect('/controllers', array('plugin' => 'nano_auth', 'controller' => 'acos'));
+    Router::connect('/controllers/:action/*', array('plugin' => 'nano_auth', 'controller' => 'acos'));
+    
+    Router::connect('/action', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
+    Router::connect('/action/:action/*', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
     
     Router::connect('/forgot_password', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'forgot_password'));
     Router::connect('/password_reset/*', array('plugin' => 'nano_auth', 'controller' => 'users', 'action' => 'password_reset'));
