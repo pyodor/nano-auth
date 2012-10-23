@@ -29,7 +29,7 @@ class ArosAcosController extends NanoAuthAppController {
 		$this->ArosAco->id = $id;
 		if (!$this->ArosAco->exists()) {
 			throw new NotFoundException(__('Invalid aros aco'));
-		}
+        }
 		$this->set('arosAco', $this->ArosAco->read(null, $id));
 	}
 

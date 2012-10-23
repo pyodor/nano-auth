@@ -13,7 +13,7 @@ Features
 - Forgot Password feature (sends password reset code through email)
 - Password Reset page (using the password reset code)
 - With Unit & Functional Testing and Code Coverage  (in progress)
-- ACL (todo)
+- ACL
 
 
 Installation
@@ -52,6 +52,9 @@ Default routes::
     /forgot_password
     /password_reset/*
     /users/:action/*
+    /groups/:action/*
+    /controllers/:action/*
+    /acl/:action/*
 
 Accessing the authentication page::
 
@@ -111,6 +114,19 @@ to enable this in production add this in your ``myapp/Config/core.php`` under ``
 
     'email_sending' => true,
 
+ACL
+--------------
+
+Inside your AppController add ``NanoAuth.NaAcl``::
+
+    public $components = array('NanoAuth.NaAcl');
+
+    public function beforeFilter() {
+        $this->NaAcl->checkPermission($this);
+    }
+
+Any controller you have in your app that was entered on the ``NanoAuth`` backend will be ACLified    
+
 Tests
 --------------
 
@@ -125,7 +141,6 @@ TODO
 ----------------
 
 - Unit Testing and Code Coverage
-- ACL support
 - Custom template
 - API (json, xml) generator for front-end use 
 
