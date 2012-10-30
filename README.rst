@@ -28,7 +28,7 @@ and provide the following parameters for your ``myapp``, database setup and some
 
 Clone the plugin inside your ``myapp/Plugin`` directory::
 
-    git clone http://[your_username]@202.172.229.26/rhodecode/CakePHP_Plugin/NanoAuth
+    git clone http://[your_username]@202.172.229.26/rhodecode/NanoAuth
 
 In your ``myapp/Config/bootstrap.php`` add this::
 
@@ -98,7 +98,20 @@ Relating ``NanoAuth``'s User model with your ``myapp`` models, for example::
     public function index() {
         debug($this->Profile->find('all'));
     }
-    
+
+ACL
+--------------
+
+Inside your AppController add ``NanoAuth.NaAcl``::
+
+    public $components = array('NanoAuth.NaAcl');
+
+    public function beforeFilter() {
+        $this->NaAcl->checkPermission($this);
+    }
+
+Any controller you have in your app that was entered on the ``NanoAuth`` backend will be ACLified    
+
 Configuration
 --------------
 
@@ -113,19 +126,6 @@ For forgot password feature, the sending of email by default is in debug mode,
 to enable this in production add this in your ``myapp/Config/core.php`` under ``NanoAuth``'s configuration::
 
     'email_sending' => true,
-
-ACL
---------------
-
-Inside your AppController add ``NanoAuth.NaAcl``::
-
-    public $components = array('NanoAuth.NaAcl');
-
-    public function beforeFilter() {
-        $this->NaAcl->checkPermission($this);
-    }
-
-Any controller you have in your app that was entered on the ``NanoAuth`` backend will be ACLified    
 
 Tests
 --------------
@@ -156,5 +156,5 @@ Send me_ a bottle of beer or FORK_ it! :)
 
 .. _WTFPL: http://sam.zoy.org/wtfpl/
 .. _me: dado@neseapl.com
-.. _FORK: http://202.172.229.26/rhodecode/CakePHP_Plugin/NanoAuth/fork
+.. _FORK: http://202.172.229.26/rhodecode/NanoAuth/fork
 
