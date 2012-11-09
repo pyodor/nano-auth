@@ -15,7 +15,13 @@ class UsersController extends NanoAuthAppController {
  */
     public function index() {
         $this->User->recursive = 0;
-		$this->set('Users', $this->paginate());
+        $users = $this->paginate();
+        $this->set('Users', $users);
+        $this->set(array(
+            'users' => $users,
+            '_serialize' => array('users')
+        
+        ));
 	}
 
 /**

@@ -45,4 +45,5 @@
     Router::connect('/acl', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
     Router::connect('/acl/:action/*', array('plugin' => 'nano_auth', 'controller' => 'aros_acos'));
 
-
+    Router::mapResources('users');
+    Router::parseExtensions();

@@ -6,10 +6,14 @@ class NanoAuthAppController extends AppController {
     );
 
     public $components = array(
+        'RequestHandler',
         'Session',
         'Security',
         'NanoAuth.NaAcl',
         'Auth' => array(
+            /*'authenticate' => array(
+                'Basic',
+            ),
             /*'authorize' => array(
                 'Actions' => array('actionPath' => 'controllers')
             ),*/
@@ -26,9 +30,16 @@ class NanoAuthAppController extends AppController {
     public $config = null;
 
     public function beforeFilter() {
+        $this->setDigestAuthIfNeeded(); 
         $this->loadUserConfig();
         $this->Auth->allow($this->allowed_actions);
         $this->NaAcl->checkPermission($this);
+    }
+
+    private function setDigestAuthIfNeeded() {
+        if(isset($_SERVER['HTTP_X_DIGEST_AUTH']) && $_SERVER['HTTP_X_DIGEST_AUTH']) {
+            $this->Auth->authenticate = array('Digest');
+        }
     }
 
     private function loadUserConfig() {

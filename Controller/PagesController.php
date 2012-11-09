@@ -109,17 +109,17 @@ class PagesController extends NanoAuthAppController {
  * @return void
  */
     public function login() {
-        if($this->Auth->user()) {
+        /*if($this->Auth->user()) {
             return $this->redirect($this->Auth->redirect());
-        }
+        }*/
 
-        if($this->request->is('post')) {
+        //if($this->request->is('post')) {
             if($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirect());
             }
             else{
                 $this->Session->setFlash('Your username/password combination was incorrect.');
             }
-        } 
+        //}
     }
 }
