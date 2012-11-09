@@ -12,6 +12,12 @@ class NanoAuthAppController extends AppController {
         'NanoAuth.NaAcl',
         'Auth' => array(
             /*'authenticate' => array(
+                'Digest' => array(
+                    'realm' => 'cake_plugin_tester.dev',
+                    'fields' => array('password' => 'digest_hash')
+                )
+            ),
+            /*'authenticate' => array(
                 'Basic',
             ),
             /*'authorize' => array(
@@ -38,7 +44,13 @@ class NanoAuthAppController extends AppController {
 
     private function setDigestAuthIfNeeded() {
         if(isset($_SERVER['HTTP_X_DIGEST_AUTH']) && $_SERVER['HTTP_X_DIGEST_AUTH']) {
-            $this->Auth->authenticate = array('Digest');
+            $realm = env('SERVER_NAME');
+            $this->Auth->authenticate = array(
+                'Digest' => array(
+                    'realm' => $realm,
+                    'fields' => array('password' => 'digest_hash')
+                )
+            );
         }
     }
 

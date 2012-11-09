@@ -1,6 +1,7 @@
 <?php
 App::uses('NanoAuthAppModel', 'NanoAuth.Model');
 App::uses('AuthComponent', 'Controller/Component');
+App::uses('DigestAuthenticate', 'Controller/Component/Auth');
 
 /**
  * User Model
@@ -69,6 +70,7 @@ class User extends NanoAuthAppModel {
     );
 
     public function beforeSave($options = array()) {
+        $this->data['User']['digest_hash'] = DigestAuthenticate::password($this->data['User']['username'], $this->data['User']['password'], env("SERVER_NAME"));
         $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
         return true;
     }

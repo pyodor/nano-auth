@@ -19,6 +19,7 @@ class NanoAuthSchema extends CakeSchema {
                     'User' => array(
                         'username' => 'admin',
                         'password' => 'f03a008f086621ee18f276afeb3e6eae0e90bd68', // admin123
+                        'digest_hash' => '099931c5fd7be6650b4755165a4c1a7e',
                         'email' => 'admin@somedomain.com',
                         'group_id' => 1, // refer to aros (group)
                     )
@@ -28,6 +29,7 @@ class NanoAuthSchema extends CakeSchema {
                     'User' => array(
                         'username' => 'user',
                         'password' => '6b4cb673c52476fbc8ab5fa44fa95446bb1a8fc9', // user12345
+                        'digest_hash' => '61a1c2ec03902b01d99b0a5b570bb607',
                         'email' => 'user@somedomain.com',
                         'group_id' => 2, // this refers to aros id 2
                     )
@@ -223,6 +225,7 @@ class NanoAuthSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'digest_hash' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'password_reset_code' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'group_id' => array('type' => 'integer', 'null' => false, 'default' => null),
@@ -231,7 +234,7 @@ class NanoAuthSchema extends CakeSchema {
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'username' => array('column' => array('username', 'email'), 'unique' => 1),
-			'password' => array('column' => array('password', 'password_reset_code', 'group_id', 'created', 'updated'), 'unique' => 0)
+			'password' => array('column' => array('password', 'digest_hash', 'password_reset_code', 'group_id', 'created', 'updated'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
