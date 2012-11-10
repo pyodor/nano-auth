@@ -2,7 +2,7 @@
 
 class NanoAuthAppController extends AppController {
     public $allowed_actions = array(
-        /*'add',*/ 'forgot_password', 'password_reset'
+        'add', 'forgot_password', 'password_reset'
     );
 
     public $components = array(

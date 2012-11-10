@@ -36,16 +36,39 @@ In your ``myapp/Config/bootstrap.php`` add this::
         'NanoAuth' => array('bootstrap' => false, 'routes' => true)
     ));
 
-Migrate ``NanoAuth``'s schema, issue this inside your ``myapp``, please do note this will drop and recreates ``users`` table:: 
+Migrate ``NanoAuth``'s schema, issue this inside your ``myapp``:: 
     
-    Console/cake schema create -s [latest schema number] --plugin NanoAuth
+    Console/cake schema create --plugin NanoAuth
 
-after the schema was created a default user ``admin`` with password ``admin123`` will be inserted.
+this will drop and recreates 4 tables::
+    
+    acos
+    aros
+    aros_acos
+    users
 
 Usage
 --------------
 
-Default routes::
+Adding your first user the administrator, navigate to::
+
+    /users/add
+
+and provide the username, password, email and select Administrator in Group, click submit.
+
+Locking the ``users`` controller after adding administrator, navigate to ``/login`` and provide the administrator credentials you created
+then navigate to ``/controllers/add`` type ``users`` on the Alias then submit. Then navigate to ``/acl/add`` and provide the following::
+    
+    Group => Administrator
+    Controller => users
+    Create => 1
+    Read => 1
+    Update => 1
+    Delete => 1
+
+the above values are making the Administrator Group to have full access on the users management module. To know more on acl module read the ACL documentation.
+
+Routes available::
     
     /login
     /logout

@@ -11,7 +11,7 @@ class ArosAco extends NanoAuthAppModel {
         'Aco' => array(
 		)
     );
-
+    /*
     public $hasMany = array(
 		'ActionExtensions' => array(
 			'className' => 'ArosAcosExtension',
@@ -20,5 +20,6 @@ class ArosAco extends NanoAuthAppModel {
 			'fields' => '',
 			'order' => ''
 		)
-	);
+    );
+    */
 }
