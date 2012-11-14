@@ -5,14 +5,12 @@ class NaAclComponent extends AclComponent {
     public $defaultActions = array('create', 'read', 'update', 'delete');
 
     public function checkPermission($route) {
-        //debug(AuthComponent::user());die;
         $group = $this->Aro->findById(AuthComponent::user('group_id'));
         //debug($group);die;
         //if(!$group) {
         //    throw new ForbiddenException();
         //}
-
-        $aro = $group['Aro']['alias'];
+        $aro = !empty($group) && isset($group['Aro']) ? $group['Aro']['alias'] : null;
         $aco = $route->request->controller;
         $action = $route->request->action;
 
