@@ -57,6 +57,7 @@ class NanoAuthAppController extends AppController {
     private function loadUserConfig() {
         $this->config = Configure::read("NanoAuth");
         if($this->config) {
+            $config = $this->config;
             $this->Auth->loginRedirect = array(
                 'controller' => isset($config['loginRedirect']['controller']) ? $config['loginRedirect']['controller'] : null,
                 'action' => isset($config['loginRedirect']['action']) ? $config['loginRedirect']['action'] : null,
