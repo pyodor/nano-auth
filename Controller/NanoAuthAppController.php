@@ -42,6 +42,10 @@ class NanoAuthAppController extends AppController {
         $this->NaAcl->checkPermission($this);
     }
 
+    public function isApiCall() {
+        return $this->RequestHandler->accepts(array('json'));
+    }
+
     private function setDigestAuthIfNeeded() {
         if(isset($_SERVER['HTTP_X_DIGEST_AUTH']) && $_SERVER['HTTP_X_DIGEST_AUTH']) {
             $realm = env('SERVER_NAME');

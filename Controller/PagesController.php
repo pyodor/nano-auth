@@ -109,13 +109,36 @@ class PagesController extends NanoAuthAppController {
  * @return void
  */
     public function login() {
-        if($this->Auth->login()) {
-            return $this->redirect($this->Auth->loginRedirect);
+        if($this->isApiCall()) {
+            $this->__apiLogin(); 
         }
-        else{
-            if($this->request->is('post')) {
-                $this->Session->setFlash('Your username/password combination was incorrect.');
+        else {
+            if($this->Auth->login()) {
+                return $this->redirect($this->Auth->loginRedirect);
+            }
+            else{
+                if($this->request->is('post')) {
+                    $this->Session->setFlash('Your username/password combination was incorrect.');
+                }
             }
         }
+    }
+
+    private function __apiLogin() {
+        if($this->Auth->login()) {
+            $login = array(
+                'Login' => array(
+                    'message' => 'Authentication successful!'
+                )
+            );
+        }
+        else{
+            $login = array(
+                'Error' => array(
+                    'message' => 'Your username/password combination was incorrect.'
+                )
+            );
+        }
+        echo json_encode(array('login' => array($login)));die;
     }
 }
