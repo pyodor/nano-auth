@@ -70,10 +70,17 @@ class User extends NanoAuthAppModel {
     );
 
     public function beforeSave($options = array()) {
+        $model = get_class($this);
         $user = $this->findById($this->id);
-        if($user['User']['password'] != $this->data['User']['password']) {
-            $this->data['User']['digest_hash'] = DigestAuthenticate::password($this->data['User']['username'], $this->data['User']['password'], env("SERVER_NAME"));
-            $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+        if(empty($user)) {
+            $this->data[$model]['digest_hash'] = DigestAuthenticate::password($this->data[$model]['username'], $this->data[$model]['password'], env("SERVER_NAME"));
+            $this->data[$model]['password'] = AuthComponent::password($this->data[$model]['password']);
+        }
+        else {
+            if($user[$model]['password'] != $this->data[$model]['password']) {
+                $this->data[$model]['digest_hash'] = DigestAuthenticate::password($user[$model]['username'], $this->data[$model]['password'], env("SERVER_NAME"));
+                $this->data[$model]['password'] = AuthComponent::password($this->data[$model]['password']);
+            } 
         }
         return true;
     }
