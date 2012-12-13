@@ -61,13 +61,22 @@ class NaAclComponent extends AclComponent {
         }
     }
 
+    public function __errorArray() {
+        $here = $this->route->request->here;
+        $controller = $this->route->request->controller;
+        return array(
+            $controller => array(
+                'Error' => array(
+                    'message' => "$here " . $this->error,
+                )
+            )
+        );
+    }
+
     private function __routeIfAvailable() {
         if(get_class($this->route)=='CakeErrorController') {
             if($this->__isJsonAndXmlRequest()) {
-                $here = $this->route->request->here;
-                $this->error = array(
-                    'message' => "$here is not a valid route or call.",
-                );
+                $this->error = "is not a valid route or call.";
                 $this->__response(); 
             }
         }
@@ -75,11 +84,8 @@ class NaAclComponent extends AclComponent {
 
     private function __forbidden() {
         if($this->__isJsonAndXmlRequest()) {
-            $here = $this->route->request->here;
-            $this->error = array(
-                    'message' => "$here access is forbidden.",
-                );
-                $this->__response();
+            $this->error = "access is forbidden.";
+            $this->__response();
         }
         else {
             throw new ForbiddenException();
@@ -88,13 +94,14 @@ class NaAclComponent extends AclComponent {
 
     private function __toJson() {
         header('Content-type: application/json');
-        echo json_encode($this->error);
+        echo json_encode($this->__errorArray());
         die;
     }
     
     private function __toXml() {
-        $xmlObject = Xml::fromArray($this->error);
+        $xmlObject = Xml::fromArray($this->__errorArray());
         $xmlString = $xmlObject->asXML();
+        header('Content-type: application/xml');
         echo $xmlString;
         die;
     }
