@@ -3,17 +3,18 @@ App::uses('AclComponent', 'Controller/Component');
 
 class NaAclComponent extends AclComponent {
     public $defaultActions = array('create', 'read', 'update', 'delete');
+    public $route; 
+    public $error = null;
+    
+    public function initialize(&$controller, $settings=array()) {
+        $this->route =& $controller;
+        $this->__routeIfAvailable();
 
-    public function checkPermission($route) {
-        //debug($route);die;
         $group = $this->Aro->findById(AuthComponent::user('group_id'));
-        //debug($group);die;
-        //if(!$group) {
-        //    throw new ForbiddenException();
-        //}
+        
         $aro = !empty($group) && isset($group['Aro']) ? $group['Aro']['alias'] : null;
-        $aco = Inflector::underscore(Inflector::camelize($route->request->controller));
-        $action = $route->request->action;
+        $aco = Inflector::underscore(Inflector::camelize($this->route->request->controller));
+        $action = $this->route->request->action;
         
         switch($action) {
             case 'add':
@@ -36,42 +37,66 @@ class NaAclComponent extends AclComponent {
         //debug($aro);
         //debug($aco);
         //debug($action);
-
+        //debug($this->route->request);die; 
         if(in_array($action, $this->defaultActions)) {
             if(!$this->check($aro, $aco, $action)) {
-                throw new ForbiddenException();
+                $this->__forbidden();
             }
         }
-        else {
-            if(!$this->checkExtensionAction($aro, $aco, $action)) {
-                throw new ForbiddenException();
+    }
+    
+    private function __isJsonAndXmlRequest() {
+        return isset($this->route->request['ext']) && 
+               in_array($this->route->request['ext'], array('json','xml'));
+    }
+
+    private function __response() {
+        switch($this->route->request['ext']) {
+            case 'json':
+                $this->__toJson();
+                break;
+            case 'xml':
+                $this->__toXml();
+                break;
+        }
+    }
+
+    private function __routeIfAvailable() {
+        if(get_class($this->route)=='CakeErrorController') {
+            if($this->__isJsonAndXmlRequest()) {
+                $here = $this->route->request->here;
+                $this->error = array(
+                    'message' => "$here is not a valid route or call.",
+                );
+                $this->__response(); 
             }
-        } 
+        }
     }
 
-    private function checkExtensionAction($aro, $aco, $action) {
-        $ArosAco = ClassRegistry::init("ArosAco");
-        $ArosAcosExt = ClassRegistry::init("ArosAcosExtension");
-
-        $aros = $this->Aro->node($aro);
-        $acos = $this->Aco->node($aco);
-
-        $aros_acos = $ArosAco->find('first', array( 
-            'conditions' => array(
-                'aro_id' => $aros[0]['Aro']['id'],
-                'aco_id' => $acos[0]['Aco']['id'],
-            )
-        ));
-
-        $aros_acos_ext = $ArosAcosExt->find('first', array(
-            'conditions' => array(
-                'aros_acos_id' => $aros_acos['ArosAco']['id'],
-                'action_name' => $action,
-            )
-        )); 
-
-        return $aros_acos_ext;
+    private function __forbidden() {
+        if($this->__isJsonAndXmlRequest()) {
+            $here = $this->route->request->here;
+            $this->error = array(
+                    'message' => "$here access is forbidden.",
+                );
+                $this->__response();
+        }
+        else {
+            throw new ForbiddenException();
+        }
     }
 
+    private function __toJson() {
+        header('Content-type: application/json');
+        echo json_encode($this->error);
+        die;
+    }
+    
+    private function __toXml() {
+        $xmlObject = Xml::fromArray($this->error);
+        $xmlString = $xmlObject->asXML();
+        echo $xmlString;
+        die;
+    }
 }
 

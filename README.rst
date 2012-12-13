@@ -129,10 +129,6 @@ Inside your AppController add ``NanoAuth.NaAcl``::
 
     public $components = array('NanoAuth.NaAcl');
 
-    public function beforeFilter() {
-        $this->NaAcl->checkPermission($this);
-    }
-
 Any controller you have in your app that was entered on the ``NanoAuth`` backend will be ACLified    
 
 Configuration

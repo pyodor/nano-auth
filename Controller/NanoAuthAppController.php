@@ -39,7 +39,6 @@ class NanoAuthAppController extends AppController {
         $this->setDigestAuthIfNeeded(); 
         $this->loadUserConfig();
         $this->Auth->allow($this->allowed_actions);
-        $this->NaAcl->checkPermission($this);
     }
 
     public function isApiCall() {
