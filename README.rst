@@ -122,6 +122,14 @@ Relating ``NanoAuth``'s User model with your ``myapp`` models, for example::
         debug($this->Profile->find('all'));
     }
 
+Linking associations ``NanoAuth``'s User model with your ``myapp`` models using Configurations, for example::
+
+    Configure::write('NanoAuth', array(
+        'userAssoc' => array(
+            'hasOne' => array('Profile'), // only hasOne is supported for now
+        )
+    ));
+
 ACL
 --------------
 
