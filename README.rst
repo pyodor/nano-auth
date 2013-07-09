@@ -19,7 +19,7 @@ Features
 Installation - Composer
 -----------------------
 
-Ensure ``require`` is present in ``composer.json``. This will install the plugin into ``Plugin/NanoAuth``:
+Ensure ``require`` is present in ``composer.json``. This will install the plugin into ``Plugin/NanoAuth``::
 
     {
         "require": {
@@ -27,7 +27,7 @@ Ensure ``require`` is present in ``composer.json``. This will install the plugin
         }
     }
 
-Get composer and install:
+Get composer and install::
 
     $ curl -sS https://getcomposer.org/installer | php
     $ php composer.phar install
