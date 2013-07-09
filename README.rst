@@ -16,8 +16,25 @@ Features
 - ACL
 
 
-Installation
---------------
+Installation - Composer
+-----------------------
+
+Ensure ``require`` is present in ``composer.json``. This will install the plugin into ``Plugin/NanoAuth``:
+
+    {
+        "require": {
+            "pyodor/nano-auth": "0.2.*"
+        }
+    }
+
+Get composer and install:
+
+    $ curl -sS https://getcomposer.org/installer | php
+    $ php composer.phar install
+
+
+Installation - Git
+------------------
 
 Make sure you properly baked your app::
 
@@ -28,7 +45,7 @@ and provide the following parameters for your ``myapp``, database setup and some
 
 Clone the plugin inside your ``myapp/Plugin`` directory::
 
-    git clone http://[your_username]@202.172.229.26/rhodecode/NanoAuth
+    git clone https://github.com/pyodor/nano-auth.git NanoAuth
 
 In your ``myapp/Config/bootstrap.php`` add this::
 
@@ -182,6 +199,6 @@ Support
 Send me_ a bottle of beer or FORK_ it! :) 
 
 .. _WTFPL: http://sam.zoy.org/wtfpl/
-.. _me: dado@neseapl.com
-.. _FORK: http://202.172.229.26/rhodecode/NanoAuth/fork
+.. _me: csicebu@gmail.com
+.. _FORK: https://github.com/pyodor/nano-auth
 
